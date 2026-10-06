@@ -57,3 +57,4 @@ Saved scenarios stay in local browser storage and are not synchronized. Export a
 References: [Graham](https://investidor10.com.br/conteudo/benjamin-graham/) and [Graham/Bazin](https://investidor10.com.br/conteudo/preco-justo-das-acoes-metodo-bazin/).
 
 - Portfolio amounts by fixed income, real estate funds, stocks, ETFs, international investments, crypto, cash and other assets; total value and current allocation percentages, saved locally on explicit request.
+- Installable mobile PWA with standalone display, Android and iOS icons, and inline installation guidance. Only the generic offline page and its icon are cached; authenticated pages, credentials and Server Actions are never cached by the service worker. Internet is required to sign in or reopen the app.

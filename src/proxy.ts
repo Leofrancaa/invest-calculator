@@ -2,6 +2,31 @@ import { NextRequest, NextResponse } from "next/server";
 import { SESSION_COOKIE, verifySessionToken } from "@/lib/security";
 
 export async function proxy(request: NextRequest) {
+  const publicAssets = new Set([
+    "/manifest.webmanifest",
+    "/sw.js",
+    "/offline.html",
+    "/icons/icon-192.png",
+    "/icons/icon-512.png",
+    "/icons/icon-maskable-512.png",
+    "/icons/apple-touch-icon.png",
+  ]);
+  if (publicAssets.has(request.nextUrl.pathname)) {
+    const response = NextResponse.next();
+    if (request.nextUrl.pathname === "/sw.js") {
+      response.headers.set(
+        "Cache-Control",
+        "no-cache, no-store, must-revalidate",
+      );
+      response.headers.set(
+        "Content-Type",
+        "application/javascript; charset=utf-8",
+      );
+      response.headers.set("Service-Worker-Allowed", "/");
+    }
+    response.headers.set("X-Content-Type-Options", "nosniff");
+    return response;
+  }
   const authenticated = await verifySessionToken(
     request.cookies.get(SESSION_COOKIE)?.value,
     process.env.AUTH_SECRET,

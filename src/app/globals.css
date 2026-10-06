@@ -1329,6 +1329,45 @@ details a {
   align-items: center;
   gap: 10px;
 }
+.pwa-install-help {
+  max-width: 1120px;
+  margin: 0 auto 24px;
+  padding: 14px 20px 0;
+  border-top: 1px solid var(--line);
+}
+.pwa-install-help summary {
+  color: var(--primary);
+}
+.pwa-install-help summary span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pwa-install-help p {
+  margin-top: 10px;
+  max-width: 75ch;
+  font-size: 12px;
+}
+.pwa-install-help button {
+  margin-top: 5px;
+}
+@media (display-mode: standalone) {
+  .pwa-install-help {
+    display: none;
+  }
+}
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  @media (max-width: 680px) {
+    .app-header {
+      padding-left: max(18px, env(safe-area-inset-left));
+      padding-right: max(18px, env(safe-area-inset-right));
+    }
+  }
+}
 .admin-label {
   color: var(--muted);
   font-size: 11px;

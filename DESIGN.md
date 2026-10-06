@@ -79,6 +79,8 @@ Empty results explain required inputs. Missing model outputs use an em dash with
 
 Sign-in uses a centered 430px column, the same panel and field tokens, a masked password with an accessible visibility toggle, inline errors, and a fixed-height pending button. The authenticated header identifies the admin and provides Sign out. Errors preserve the username and focus the missing field or password.
 
+PWA installation help uses a native inline disclosure at the page footer and hides in standalone mode. Icons preserve the violet mark with a mask-safe inset. The offline fallback is a generic message, never a cached authenticated screen. Mobile safe-area padding protects controls in standalone display.
+
 Global scrollbars inherit tokenized thumb/track colors with hover and active variants. Focus uses a visible violet outline. Selection and input caret use the same palette. Reduced-motion disables transitions and smooth scrolling.
 
 ## Do's and Don'ts
