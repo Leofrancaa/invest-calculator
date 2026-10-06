@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-06T11:41:53.335Z",
+  "title": "Design System: Invest Calculator",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Quiet Violet",
+        "tonalRamp": [
+          "oklch(15.00% 0.11341 288.59)",
+          "oklch(26.43% 0.11341 288.59)",
+          "oklch(37.86% 0.11341 288.59)",
+          "oklch(49.29% 0.11341 288.59)",
+          "oklch(60.71% 0.11341 288.59)",
+          "oklch(72.14% 0.11341 288.59)",
+          "oklch(83.57% 0.11341 288.59)",
+          "oklch(95.00% 0.11341 288.59)"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary",
+        "displayName": "Deep Violet",
+        "tonalRamp": [
+          "oklch(15.00% 0.09640 289.65)",
+          "oklch(26.43% 0.09640 289.65)",
+          "oklch(37.86% 0.09640 289.65)",
+          "oklch(49.29% 0.09640 289.65)",
+          "oklch(60.71% 0.09640 289.65)",
+          "oklch(72.14% 0.09640 289.65)",
+          "oklch(83.57% 0.09640 289.65)",
+          "oklch(95.00% 0.09640 289.65)"
+        ]
+      },
+      "background": {
+        "role": "neutral",
+        "displayName": "Cool Paper",
+        "tonalRamp": [
+          "oklch(15.00% 0.00287 264.54)",
+          "oklch(26.43% 0.00287 264.54)",
+          "oklch(37.86% 0.00287 264.54)",
+          "oklch(49.29% 0.00287 264.54)",
+          "oklch(60.71% 0.00287 264.54)",
+          "oklch(72.14% 0.00287 264.54)",
+          "oklch(83.57% 0.00287 264.54)",
+          "oklch(95.00% 0.00287 264.54)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "White Surface",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95.00% 0.00000 89.88)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Charcoal Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.02965 278.75)",
+          "oklch(26.43% 0.02965 278.75)",
+          "oklch(37.86% 0.02965 278.75)",
+          "oklch(49.29% 0.02965 278.75)",
+          "oklch(60.71% 0.02965 278.75)",
+          "oklch(72.14% 0.02965 278.75)",
+          "oklch(83.57% 0.02965 278.75)",
+          "oklch(95.00% 0.02965 278.75)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Slate",
+        "tonalRamp": [
+          "oklch(15.00% 0.03174 276.35)",
+          "oklch(26.43% 0.03174 276.35)",
+          "oklch(37.86% 0.03174 276.35)",
+          "oklch(49.29% 0.03174 276.35)",
+          "oklch(60.71% 0.03174 276.35)",
+          "oklch(72.14% 0.03174 276.35)",
+          "oklch(83.57% 0.03174 276.35)",
+          "oklch(95.00% 0.03174 276.35)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Pale Divider",
+        "tonalRamp": [
+          "oklch(15.00% 0.00967 273.35)",
+          "oklch(26.43% 0.00967 273.35)",
+          "oklch(37.86% 0.00967 273.35)",
+          "oklch(49.29% 0.00967 273.35)",
+          "oklch(60.71% 0.00967 273.35)",
+          "oklch(72.14% 0.00967 273.35)",
+          "oklch(83.57% 0.00967 273.35)",
+          "oklch(95.00% 0.00967 273.35)"
+        ]
+      },
+      "tint": {
+        "role": "primary",
+        "displayName": "Violet Wash",
+        "tonalRamp": [
+          "oklch(15.00% 0.01500 298.56)",
+          "oklch(26.43% 0.01500 298.56)",
+          "oklch(37.86% 0.01500 298.56)",
+          "oklch(49.29% 0.01500 298.56)",
+          "oklch(60.71% 0.01500 298.56)",
+          "oklch(72.14% 0.01500 298.56)",
+          "oklch(83.57% 0.01500 298.56)",
+          "oklch(95.00% 0.01500 298.56)"
+        ]
+      },
+      "success": {
+        "role": "success",
+        "displayName": "Measured Green",
+        "tonalRamp": [
+          "oklch(15.00% 0.08042 170.83)",
+          "oklch(26.43% 0.08042 170.83)",
+          "oklch(37.86% 0.08042 170.83)",
+          "oklch(49.29% 0.08042 170.83)",
+          "oklch(60.71% 0.08042 170.83)",
+          "oklch(72.14% 0.08042 170.83)",
+          "oklch(83.57% 0.08042 170.83)",
+          "oklch(95.00% 0.08042 170.83)"
+        ]
+      },
+      "success-tint": {
+        "role": "success",
+        "displayName": "Green Wash",
+        "tonalRamp": [
+          "oklch(15.00% 0.01247 164.80)",
+          "oklch(26.43% 0.01247 164.80)",
+          "oklch(37.86% 0.01247 164.80)",
+          "oklch(49.29% 0.01247 164.80)",
+          "oklch(60.71% 0.01247 164.80)",
+          "oklch(72.14% 0.01247 164.80)",
+          "oklch(83.57% 0.01247 164.80)",
+          "oklch(95.00% 0.01247 164.80)"
+        ]
+      },
+      "danger": {
+        "role": "danger",
+        "displayName": "Muted Crimson",
+        "tonalRamp": [
+          "oklch(15.00% 0.14345 14.38)",
+          "oklch(26.43% 0.14345 14.38)",
+          "oklch(37.86% 0.14345 14.38)",
+          "oklch(49.29% 0.14345 14.38)",
+          "oklch(60.71% 0.14345 14.38)",
+          "oklch(72.14% 0.14345 14.38)",
+          "oklch(83.57% 0.14345 14.38)",
+          "oklch(95.00% 0.14345 14.38)"
+        ]
+      },
+      "scroll-thumb": {
+        "role": "neutral",
+        "displayName": "Soft Slate",
+        "tonalRamp": [
+          "oklch(15.00% 0.02387 288.54)",
+          "oklch(26.43% 0.02387 288.54)",
+          "oklch(37.86% 0.02387 288.54)",
+          "oklch(49.29% 0.02387 288.54)",
+          "oklch(60.71% 0.02387 288.54)",
+          "oklch(72.14% 0.02387 288.54)",
+          "oklch(83.57% 0.02387 288.54)",
+          "oklch(95.00% 0.02387 288.54)"
+        ]
+      },
+      "scroll-hover": {
+        "role": "neutral",
+        "displayName": "Deep Slate",
+        "tonalRamp": [
+          "oklch(15.00% 0.04153 290.10)",
+          "oklch(26.43% 0.04153 290.10)",
+          "oklch(37.86% 0.04153 290.10)",
+          "oklch(49.29% 0.04153 290.10)",
+          "oklch(60.71% 0.04153 290.10)",
+          "oklch(72.14% 0.04153 290.10)",
+          "oklch(83.57% 0.04153 290.10)",
+          "oklch(95.00% 0.04153 290.10)"
+        ]
+      },
+      "scroll-active": {
+        "role": "neutral",
+        "displayName": "Active Violet",
+        "tonalRamp": [
+          "oklch(15.00% 0.11341 288.59)",
+          "oklch(26.43% 0.11341 288.59)",
+          "oklch(37.86% 0.11341 288.59)",
+          "oklch(49.29% 0.11341 288.59)",
+          "oklch(60.71% 0.11341 288.59)",
+          "oklch(72.14% 0.11341 288.59)",
+          "oklch(83.57% 0.11341 288.59)",
+          "oklch(95.00% 0.11341 288.59)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "sans": {
+        "displayName": "Body",
+        "purpose": "Labels, controls, supporting copy and tables."
+      },
+      "display": {
+        "displayName": "Display",
+        "purpose": "Headings and principal numeric outputs."
+      }
+    },
+    "motion": [
+      {
+        "name": "state-transition",
+        "value": "150ms ease",
+        "purpose": "Input borders and button backgrounds; disabled under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "horizontal-navigation",
+        "value": "950px"
+      },
+      {
+        "name": "stacked-panels",
+        "value": "680px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Save a comparison snapshot.",
+      "html": "<button class=\"ds-button-primary\">Save comparison</button>",
+      "css": ".ds-button-primary{border-radius:var(--radius-control);min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:11px 16px;font-size:11px;font-weight:550;transition:background 150ms ease;cursor:pointer;font-family:\"DM Sans Variable\",sans-serif;border:0;background:var(--primary);color:var(--surface);}.ds-button-primary:hover{background:var(--primary-hover);}.ds-button-primary:focus-visible{outline:3px solid var(--primary);outline-offset:4px;}.ds-button-primary:active{transform:translateY(1px);}.ds-button-primary:disabled{opacity:.5;cursor:not-allowed;}@media(prefers-reduced-motion:reduce){*{transition:none!important;}}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "description": "Export saved comparison data.",
+      "html": "<button class=\"ds-button-secondary\">Export CSV</button>",
+      "css": ".ds-button-secondary{border-radius:var(--radius-control);min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:11px 16px;font-size:11px;font-weight:550;transition:background 150ms ease;cursor:pointer;font-family:\"DM Sans Variable\",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);}.ds-button-secondary:hover{background:var(--tint);}.ds-button-secondary:focus-visible{outline:3px solid var(--primary);outline-offset:4px;}.ds-button-secondary:active{transform:translateY(1px);}.ds-button-secondary:disabled{opacity:.5;cursor:not-allowed;}@media(prefers-reduced-motion:reduce){*{transition:none!important;}}"
+    },
+    {
+      "name": "Numeric Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Manual numeric entry with an explicit unit.",
+      "html": "<label class=\"ds-field-label\" for=\"ds-price\">Current quote</label><div class=\"ds-field\"><input id=\"ds-price\" inputmode=\"decimal\" placeholder=\"0.00\" aria-label=\"Current quote in BRL\"><span>BRL</span></div>",
+      "css": ".ds-field-label{display:block;font-size:11px;font-weight:550;margin-bottom:7px;color:var(--ink);font-family:\"DM Sans Variable\",sans-serif;}.ds-field{display:flex;align-items:center;border:1px solid var(--line);border-radius:var(--radius-control);background:var(--background);min-height:43px;padding:0 12px;transition:border-color 150ms ease;}.ds-field:hover{border-color:var(--scroll-thumb);}.ds-field:focus-within{border-color:var(--primary);outline:2px solid var(--tint);}.ds-field input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);padding:11px 0;font-size:13px;caret-color:var(--primary);font-variant-numeric:tabular-nums;font-family:\"DM Sans Variable\",sans-serif;}.ds-field input::placeholder{color:var(--muted);opacity:1;}.ds-field span{font-size:10px;color:var(--muted);white-space:nowrap;margin-left:8px;font-family:\"DM Sans Variable\",sans-serif;}@media(prefers-reduced-motion:reduce){*{transition:none!important;}}"
+    },
+    {
+      "name": "Calculator Navigation",
+      "kind": "nav",
+      "description": "Active calculator navigation uses a quiet violet tint.",
+      "html": "<nav aria-label=\"Calculators\"><button class=\"ds-navigation\" aria-current=\"page\">Stock valuation</button></nav>",
+      "css": ".ds-navigation{border:0;display:flex;align-items:center;text-align:left;width:100%;padding:14px 12px;border-radius:10px;color:var(--primary);background:var(--tint);font-size:12px;font-weight:650;cursor:pointer;font-family:\"DM Sans Variable\",sans-serif;}.ds-navigation:hover{background:var(--line);color:var(--ink);}.ds-navigation:focus-visible{outline:3px solid var(--primary);outline-offset:4px;}"
+    },
+    {
+      "name": "Subtle Tag",
+      "kind": "chip",
+      "description": "A noninteractive label identifies result context.",
+      "html": "<span class=\"ds-tag\">Model prices</span>",
+      "css": ".ds-tag{display:inline-block;color:var(--muted);background:var(--background);padding:4px 8px;border-radius:5px;font-size:9px;white-space:nowrap;font-family:\"DM Sans Variable\",sans-serif;}"
+    },
+    {
+      "name": "Calculator Panel",
+      "kind": "card",
+      "description": "A flat white container groups related inputs or results.",
+      "html": "<section class=\"ds-panel\"><h2>Valuation results</h2><p>Compare manually entered assumptions.</p></section>",
+      "css": ".ds-panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-panel);padding:25px;min-width:0;color:var(--ink);font-family:\"DM Sans Variable\",sans-serif;}.ds-panel h2{margin:0;font-family:\"Manrope Variable\",sans-serif;font-size:15px;font-weight:650;letter-spacing:-.02em;}.ds-panel p{font-size:11px;color:var(--muted);margin:7px 0 0;}"
+    },
+    {
+      "name": "Entry Price Band",
+      "kind": "custom",
+      "description": "The chosen safety margin distinguishes entry prices from raw model outputs.",
+      "html": "<section class=\"ds-entry\"><span>Entry price with your safety margin</span><strong>R$ 24.00</strong><small>Hypothetical example</small></section>",
+      "css": ".ds-entry{background:var(--tint);border-radius:12px;padding:19px;color:var(--primary);font-family:\"DM Sans Variable\",sans-serif;}.ds-entry span{display:block;font-size:10px;font-weight:550;margin-bottom:17px;}.ds-entry strong{display:block;font-size:23px;letter-spacing:-.03em;font-family:\"Manrope Variable\",sans-serif;font-weight:600;font-variant-numeric:tabular-nums;}.ds-entry small{display:block;font-size:9px;margin-top:6px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Personal Financial Planning Notebook",
+    "overview": "Reference: the working surface of a personal financial planning notebook, organized like a modern calculation instrument. This is product UI for manual analysis alongside a data website. Signature: the violet entry-price band makes the investor's chosen discount visibly distinct from raw model prices.\n\nRuntime token ownership is `src/app/globals.css`: CSS custom properties are canonical and mirrored here. Tailwind v4 aliases reference those variables. Components consume semantic variables and shared field/metric recipes. English UI, BRL output, no Japan-market scope.",
+    "keyCharacteristics": [
+      "Light, restrained workbench",
+      "Flat bordered panels",
+      "Violet entry-price band"
+    ],
+    "rules": [],
+    "dos": [
+      "Keep data-entry hints tied to Investidor10's public LPA/VPA terminology.",
+      "Identify example numbers as illustrative, never live data.",
+      "Keep scenario percentages and output units explicit."
+    ],
+    "donts": [
+      "Do not use marketing cards, hero statistics or decorative charts. The growth chart is backed by a numeric year table.",
+      "Do not replace missing financial evidence with recommendations."
+    ]
+  }
+}
