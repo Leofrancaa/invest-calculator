@@ -1,11 +1,22 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
+  calculateAnnualDividends,
   calculateValuation,
   calculateIncome,
   calculateCompound,
   parseAmount,
 } from "../src/lib/calculations";
+
+test("annual dividends from price and yield retain precision and reject invalid values", () => {
+  assert.ok(Math.abs(calculateAnnualDividends(49.3, 6.4)! - 3.1552) < 1e-10);
+  assert.equal(calculateAnnualDividends(25, 8), 2);
+  assert.equal(calculateAnnualDividends(25, 0), 0);
+  for (const price of [null, 0, -1, Infinity, NaN])
+    assert.equal(calculateAnnualDividends(price, 6.4), null);
+  for (const dividendYield of [null, -1, Infinity, NaN])
+    assert.equal(calculateAnnualDividends(49.3, dividendYield), null);
+});
 
 test("decimal parsing supports Brazilian and English values without silently accepting malformed inputs", () => {
   for (const input of ["1234.56", "1234,56", "1.234,56", "1,234.56"])

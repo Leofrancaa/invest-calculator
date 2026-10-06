@@ -69,6 +69,8 @@ Borders and tonal surfaces own depth. No drop shadows, gradients, decorative blu
 
 The shared Field owns labels, parsing feedback, focus and error description. Native range controls are canonical for safety margin; no select/listbox is required. Plain buttons switch tools, with `aria-current` on the active calculator.
 
+DividendEstimator owns the inline disclosure for deriving annual dividends from the entered quote and trailing-12-month DY. Valuation and income reuse this component. Applying the estimate is explicit; changing the quote or DY never silently replaces the dividend field. The estimate displays up to six decimal places.
+
 Paired fields share label, input and hint grid tracks through CSS subgrid, so a wrapped label never pushes one input below its neighbor. Older browsers reserve a common label height as a fallback. Labels wrap without truncation.
 
 Empty results explain required inputs. Missing model outputs use an em dash with a textual reason. Storage notifications use one stable live region. Disabled saving/export remain visibly disabled. Inline disclosures use native details/summary keyboard behavior. No modal workflow is needed.

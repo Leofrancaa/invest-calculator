@@ -18,6 +18,23 @@ export function parseAmount(input: string): number | null {
   return Number.isFinite(number) ? number : null;
 }
 
+export function calculateAnnualDividends(
+  price: number | null,
+  dividendYield: number | null,
+): number | null {
+  if (
+    price === null ||
+    dividendYield === null ||
+    !Number.isFinite(price) ||
+    !Number.isFinite(dividendYield) ||
+    price <= 0 ||
+    dividendYield < 0
+  )
+    return null;
+  const result = (price * dividendYield) / 100;
+  return Number.isFinite(result) ? result : null;
+}
+
 export type ValuationInput = {
   price: number;
   eps: number | null;

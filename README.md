@@ -5,6 +5,7 @@ A small, independent investing workbench built with Next.js App Router, TypeScri
 ## Features
 
 - Graham number, dividend-based Bazin ceiling, custom safety margin and entry-price scenarios.
+- Inline annual-dividend estimator from current share price × trailing-12-month dividend yield ÷ 100, available in valuation and income tools. Apply explicitly to preserve manual inputs.
 - Local comparison shelf (up to 12 snapshots) and CSV export.
 - Dividend income goals, required capital and current-holdings income.
 - Compound growth, fixed monthly contributions, effective annual returns and inflation-adjusted results.

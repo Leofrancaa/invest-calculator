@@ -15,6 +15,62 @@ test.beforeEach(async ({ page }) => {
   ).toBeVisible();
 });
 
+test("annual dividend estimator applies precise values and preserves manual entries", async ({
+  page,
+}) => {
+  await page
+    .getByText("Calcular proventos pelo Dividend Yield", { exact: true })
+    .click();
+  const apply = page.getByRole("button", { name: "Usar valor nos proventos" });
+  await expect(apply).toBeDisabled();
+  await page.getByLabel("Preço atual da ação", { exact: true }).fill("49,30");
+  await page
+    .getByLabel("Dividend Yield atual (DY)", { exact: true })
+    .fill("6,4");
+  await expect(page.getByText("R$ 3,1552", { exact: true })).toBeVisible();
+  await apply.click();
+  await expect(page.getByLabel("Proventos anuais por ação")).toHaveValue(
+    "3,1552",
+  );
+  await page.getByLabel("Preço atual da ação", { exact: true }).fill("50");
+  await expect(page.getByText("R$ 3,20", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("Proventos anuais por ação")).toHaveValue(
+    "3,1552",
+  );
+  await apply.click();
+  await expect(page.getByLabel("Proventos anuais por ação")).toHaveValue("3,2");
+  await page
+    .getByLabel("Dividend Yield atual (DY)", { exact: true })
+    .fill("invalid");
+  await expect(apply).toBeDisabled();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page
+    .getByLabel("Dividend Yield atual (DY)", { exact: true })
+    .fill("6,4");
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await page.screenshot({
+    path: ".impeccable/review/dividend-estimator-mobile.png",
+    fullPage: true,
+  });
+  await page.getByRole("button", { name: "Renda com dividendos" }).click();
+  await page.getByLabel("Preço atual da ação", { exact: true }).fill("49,30");
+  await page
+    .getByText("Calcular proventos pelo Dividend Yield", { exact: true })
+    .click();
+  await page
+    .getByLabel("Dividend Yield atual (DY)", { exact: true })
+    .fill("6,4");
+  await page.getByRole("button", { name: "Usar valor nos proventos" }).click();
+  await expect(page.getByLabel("Proventos anuais por ação")).toHaveValue(
+    "3,1552",
+  );
+});
+
 test("valuation, storage, CSV, invalid data and both secondary tools", async ({
   page,
 }) => {

@@ -24,6 +24,7 @@ import {
   X,
 } from "lucide-react";
 import {
+  calculateAnnualDividends,
   calculateCompound,
   calculateIncome,
   calculateValuation,
@@ -141,6 +142,83 @@ function Field({
     </div>
   );
 }
+function DividendEstimator({
+  price,
+  onApply,
+  idPrefix,
+}: {
+  price: string;
+  onApply: (value: string) => void;
+  idPrefix: string;
+}) {
+  const [dividendYield, setDividendYield] = useState("");
+  const [status, setStatus] = useState("");
+  const priceValue = valid(price, 0.000001);
+  const yieldValue = valid(dividendYield, 0, 100);
+  const estimate = calculateAnnualDividends(priceValue, yieldValue);
+  return (
+    <details className="dividend-estimator">
+      <summary>
+        Calcular proventos pelo Dividend Yield <Plus size={16} />
+      </summary>
+      <div>
+        <p className="estimator-description">
+          Use o DY dos últimos 12 meses e a cotação correspondente. O resultado
+          é uma aproximação.
+        </p>
+        <Field
+          id={`${idPrefix}-dividend-yield`}
+          label="Dividend Yield atual (DY)"
+          value={dividendYield}
+          onChange={(value) => {
+            setDividendYield(value);
+            setStatus("");
+          }}
+          suffix="%"
+          min={0}
+          max={100}
+          hint="Informe o percentual, por exemplo: 6,4."
+        />
+        <div className="estimator-result">
+          <span>Proventos anuais estimados por ação</span>
+          <strong>
+            {estimate === null
+              ? "—"
+              : `R$ ${estimate.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 6 })}`}
+          </strong>
+          <p>
+            {priceValue === null
+              ? "Preencha um preço atual válido no campo acima."
+              : yieldValue === null
+                ? "Informe um DY válido para calcular."
+                : `${currency(priceValue)} × ${yieldValue.toLocaleString("pt-BR", { maximumFractionDigits: 6 })} ÷ 100`}
+          </p>
+        </div>
+        <button
+          type="button"
+          className="button secondary"
+          disabled={estimate === null}
+          onClick={() => {
+            if (estimate === null) return;
+            onApply(
+              estimate.toLocaleString("pt-BR", {
+                useGrouping: false,
+                maximumFractionDigits: 10,
+              }),
+            );
+            setStatus("Valor aplicado ao campo de proventos anuais.");
+          }}
+        >
+          Usar valor nos proventos <ArrowRight size={15} />
+        </button>
+        <p className="estimator-status" role="status">
+          {status}
+        </p>
+      </div>
+    </details>
+  );
+}
+
 function Metric({
   label,
   value,
@@ -632,6 +710,11 @@ function Valuation({
                 hint="Referência de Bazin: 6% ao ano"
               />
             </div>
+            <DividendEstimator
+              price={price}
+              onApply={setDividend}
+              idPrefix="valuation"
+            />
             <div className="margin-control">
               <div>
                 <label htmlFor="safety-margin">Margem de segurança</label>
@@ -936,6 +1019,11 @@ function Income() {
               onChange={setDividend}
               min={0.000001}
               hint="Total por ação durante um ano completo."
+            />
+            <DividendEstimator
+              price={price}
+              onApply={setDividend}
+              idPrefix="income"
             />
             <Field
               id="income-goal"

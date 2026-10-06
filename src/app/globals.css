@@ -450,6 +450,43 @@ h2 {
   margin-top: 8px;
   padding-top: 19px;
 }
+.dividend-estimator {
+  margin: 6px 0 16px;
+}
+.dividend-estimator summary {
+  color: var(--primary);
+}
+.dividend-estimator > div {
+  padding-top: 14px;
+}
+.estimator-description {
+  margin-bottom: 14px;
+}
+.estimator-result {
+  margin: 4px 0 14px;
+}
+.estimator-result > span {
+  display: block;
+  font-size: 11px;
+}
+.estimator-result strong {
+  display: block;
+  color: var(--primary);
+  font-size: 21px;
+  font-family: "Manrope Variable", sans-serif;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+  margin-top: 4px;
+}
+.estimator-result p {
+  margin-top: 5px;
+}
+.estimator-status {
+  min-height: 20px;
+  font-size: 10px;
+  color: var(--primary);
+  margin-top: 7px;
+}
 .margin-control > div {
   display: flex;
   justify-content: space-between;
