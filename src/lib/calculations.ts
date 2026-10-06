@@ -138,4 +138,4 @@ export const currency = (value: number | null) =>
 export const percent = (value: number | null) =>
   value === null
     ? "—"
-    : `${new Intl.NumberFormat("en", { maximumFractionDigits: 1 }).format(value)}%`;
+    : `${new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 }).format(value)}%`;

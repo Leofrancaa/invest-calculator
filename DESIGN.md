@@ -43,7 +43,7 @@ components:
 
 Reference: the working surface of a personal financial planning notebook, organized like a modern calculation instrument. This is product UI for manual analysis alongside a data website. Signature: the violet entry-price band makes the investor's chosen discount visibly distinct from raw model prices.
 
-Runtime token ownership is `src/app/globals.css`: CSS custom properties are canonical and mirrored here. Tailwind v4 aliases reference those variables. Components consume semantic variables and shared field/metric recipes. English UI, BRL output, no Japan-market scope.
+Runtime token ownership is `src/app/globals.css`: CSS custom properties are canonical and mirrored here. Tailwind v4 aliases reference those variables. Components consume semantic variables and shared field/metric recipes. Brazilian Portuguese UI and number formatting, BRL output, no Japan-market scope.
 
 ## Colors
 
@@ -68,6 +68,8 @@ Borders and tonal surfaces own depth. No drop shadows, gradients, decorative blu
 ## Components
 
 The shared Field owns labels, parsing feedback, focus and error description. Native range controls are canonical for safety margin; no select/listbox is required. Plain buttons switch tools, with `aria-current` on the active calculator.
+
+Paired fields share label, input and hint grid tracks through CSS subgrid, so a wrapped label never pushes one input below its neighbor. Older browsers reserve a common label height as a fallback. Labels wrap without truncation.
 
 Empty results explain required inputs. Missing model outputs use an em dash with a textual reason. Storage notifications use one stable live region. Disabled saving/export remain visibly disabled. Inline disclosures use native details/summary keyboard behavior. No modal workflow is needed.
 

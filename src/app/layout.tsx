@@ -4,16 +4,16 @@ import "@fontsource-variable/manrope";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Invest Calculator — Your investing workbench",
+  title: "Invest Calculator — Calculadoras de investimentos",
   description:
-    "Calculate Graham fair value, Bazin ceiling price, dividend income and compound growth. A free, private companion to Investidor10.",
+    "Calcule o preço justo de Graham, o preço-teto de Bazin, a renda com dividendos e os juros compostos. Uma ferramenta gratuita para usar com o Investidor10.",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <body>{children}</body>
     </html>
   );

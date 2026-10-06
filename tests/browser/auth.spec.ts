@@ -10,29 +10,29 @@ test("private login, invalid credentials, session, password visibility and logou
   await page.goto("/");
   await expect(page).toHaveURL(/\/login$/);
   await expect(
-    page.getByRole("heading", { name: "Your private workbench." }),
+    page.getByRole("heading", { name: "Seu espaço de investimentos." }),
   ).toBeVisible();
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
-  await page.getByRole("button", { name: "Sign in", exact: true }).click();
-  await expect(page.locator("#login-error")).toHaveText("Enter your username.");
-  await expect(page.getByLabel("Username")).toBeFocused();
-  await page.getByLabel("Username").fill("admin");
-  await page.getByLabel("Password", { exact: true }).fill("wrong-password");
-  await page.getByRole("button", { name: "Sign in", exact: true }).click();
-  await expect(page.locator("#login-error")).toContainText("incorrect");
+  await page.getByRole("button", { name: "Entrar", exact: true }).click();
+  await expect(page.locator("#login-error")).toHaveText("Informe seu usuário.");
+  await expect(page.getByLabel("Usuário")).toBeFocused();
+  await page.getByLabel("Usuário").fill("admin");
+  await page.getByLabel("Senha", { exact: true }).fill("wrong-password");
+  await page.getByRole("button", { name: "Entrar", exact: true }).click();
+  await expect(page.locator("#login-error")).toContainText("incorretos");
   await expect(page).toHaveURL(/\/login$/);
   await page
-    .getByLabel("Password", { exact: true })
+    .getByLabel("Senha", { exact: true })
     .fill(process.env.TEST_ADMIN_PASSWORD);
-  await page.getByRole("button", { name: "Show password" }).click();
-  await expect(page.getByLabel("Password", { exact: true })).toHaveAttribute(
+  await page.getByRole("button", { name: "Mostrar senha" }).click();
+  await expect(page.getByLabel("Senha", { exact: true })).toHaveAttribute(
     "type",
     "text",
   );
-  await page.getByRole("button", { name: "Hide password" }).click();
-  await page.getByRole("button", { name: "Sign in", exact: true }).click();
+  await page.getByRole("button", { name: "Ocultar senha" }).click();
+  await page.getByRole("button", { name: "Entrar", exact: true }).click();
   await expect(
-    page.getByRole("heading", { name: "A clearer view of value." }),
+    page.getByRole("heading", { name: "Quanto vale a ação?" }),
   ).toBeVisible();
   const cookie = (await context.cookies()).find(
     (cookie) => cookie.name === "__Host-invest-session",
@@ -42,9 +42,9 @@ test("private login, invalid credentials, session, password visibility and logou
   expect(cookie?.sameSite).toBe("Lax");
   await page.reload();
   await expect(
-    page.getByRole("heading", { name: "A clearer view of value." }),
+    page.getByRole("heading", { name: "Quanto vale a ação?" }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Sign out" }).click();
+  await page.getByRole("button", { name: "Sair" }).click();
   await expect(page).toHaveURL(/\/login$/);
   await page.goto("/");
   await expect(page).toHaveURL(/\/login$/);

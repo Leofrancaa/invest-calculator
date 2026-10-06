@@ -284,7 +284,7 @@
   ],
   "narrative": {
     "northStar": "Personal Financial Planning Notebook",
-    "overview": "Reference: the working surface of a personal financial planning notebook, organized like a modern calculation instrument. This is product UI for manual analysis alongside a data website. Signature: the violet entry-price band makes the investor's chosen discount visibly distinct from raw model prices.\n\nRuntime token ownership is `src/app/globals.css`: CSS custom properties are canonical and mirrored here. Tailwind v4 aliases reference those variables. Components consume semantic variables and shared field/metric recipes. English UI, BRL output, no Japan-market scope.",
+    "overview": "Reference: the working surface of a personal financial planning notebook, organized like a modern calculation instrument. This is product UI for manual analysis alongside a data website. Signature: the violet entry-price band makes the investor's chosen discount visibly distinct from raw model prices.\n\nRuntime token ownership is `src/app/globals.css`: CSS custom properties are canonical and mirrored here. Tailwind v4 aliases reference those variables. Components consume semantic variables and shared field/metric recipes. Brazilian Portuguese UI and number formatting, BRL output, no Japan-market scope.",
     "keyCharacteristics": [
       "Light, restrained workbench",
       "Flat bordered panels",

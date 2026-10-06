@@ -424,8 +424,26 @@ h2 {
 }
 .field-pair {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 15px;
+  row-gap: 0;
+}
+.field-pair > .field {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+}
+.field-pair .field label {
+  align-items: flex-end;
+  align-self: end;
+}
+@supports not (grid-template-rows: subgrid) {
+  .field-pair > .field {
+    display: block;
+  }
+  .field-pair .field label {
+    min-height: 4.5em;
+  }
 }
 .margin-control {
   border-top: 1px solid var(--line);
@@ -984,7 +1002,7 @@ details a {
     display: none;
   }
   .field-pair {
-    gap: 10px;
+    column-gap: 10px;
   }
   .field label {
     font-size: 10px;
@@ -1099,7 +1117,7 @@ details a {
     display: inline;
   }
   .field-pair {
-    gap: 14px;
+    column-gap: 14px;
   }
   .metric strong {
     font-size: 26px;

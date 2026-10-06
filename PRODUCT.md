@@ -6,7 +6,7 @@ The primary job is comparing Graham and dividend-yield model prices with a manua
 
 The account name is `admin`; the password is configured only as a server-side scrypt hash. Signed sessions expire after eight hours. Public visitors see the sign-in screen. The calculator requires a verified session on the server, and signing out returns to sign-in. Credentials are never documented in source or sent to the client as configuration.
 
-English interface and technical artifacts follow the user's project language policy. BRL formatting and labels for LPA/VPA support Brazilian source data. Examples must always be identified as hypothetical.
+The user explicitly requested a Brazilian Portuguese interface. User-facing labels, feedback, accessible names, metadata and exported column labels use pt-BR. Code identifiers and technical documentation remain English. BRL formatting and labels for LPA/VPA support Brazilian source data. Examples must always be identified as hypothetical.
 
 The interface is an Operate surface. Use a light, restrained workbench for a desktop browser beside Investidor10, with a stacked phone layout. Inputs and results must stay together; no onboarding or marketing hero.
 

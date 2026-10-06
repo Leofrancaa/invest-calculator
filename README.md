@@ -43,7 +43,7 @@ Sessions are HS256-signed tokens checked by both the request proxy and the calcu
 
 ## Input conventions and limitations
 
-The interface uses English; monetary values use BRL with Brazilian formatting. Both comma and dot decimal separators are accepted; mixed separators must have valid three-digit grouping. A single separator is always treated as a decimal separator.
+The interface and exported column labels use Brazilian Portuguese; currency, percentages, quantities and ratios use Brazilian formatting. Code identifiers and technical documentation remain English. Both comma and dot decimal separators are accepted; mixed separators must have valid three-digit grouping. A single separator is always treated as a decimal separator.
 
 Use last-12-month earnings per share (LPA), latest book value per share (VPA), and annual dividends in reais per share, all on a consistent split-adjusted share basis. Inputs are manual; the application does not import or verify Investidor10 data. Example values are illustrative, not live quotes.
 

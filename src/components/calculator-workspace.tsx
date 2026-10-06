@@ -47,33 +47,36 @@ const STORAGE_KEY = "invest-calculator:scenarios:v1";
 const tools = [
   {
     id: "valuation" as const,
-    label: "Stock valuation",
+    label: "Avaliação de ações",
     icon: Landmark,
     description: "Graham & Bazin",
   },
   {
     id: "income" as const,
-    label: "Dividend income",
+    label: "Renda com dividendos",
     icon: Wallet,
-    description: "Plan your monthly goal",
+    description: "Planeje sua meta mensal",
   },
   {
     id: "compound" as const,
-    label: "Compound growth",
+    label: "Juros compostos",
     icon: TrendingUp,
-    description: "See the long-term picture",
+    description: "Simule o crescimento do patrimônio",
   },
 ];
 const titles = {
   valuation: [
-    "A clearer view of value.",
-    "Bring the numbers. Explore the price.",
+    "Quanto vale a ação?",
+    "Informe os indicadores e compare os preços estimados.",
   ],
   income: [
-    "Put a number on your goal.",
-    "Turn dividend assumptions into an income plan.",
+    "Planeje sua renda mensal.",
+    "Calcule quanto investir para alcançar sua meta de dividendos.",
   ],
-  compound: ["Give your money time.", "Explore what consistency could build."],
+  compound: [
+    "Veja seu patrimônio crescer.",
+    "Simule o efeito dos aportes e do tempo nos seus investimentos.",
+  ],
 };
 
 function Field({
@@ -109,13 +112,13 @@ function Field({
       (integer && !Number.isInteger(number))
     : false;
   const error = integer
-    ? `Enter a whole number from ${min} to ${max}.`
-    : `Enter a number from ${min} to ${max}.`;
+    ? `Informe um número inteiro entre ${min.toLocaleString("pt-BR")} e ${max.toLocaleString("pt-BR")}.`
+    : `Informe um número entre ${min.toLocaleString("pt-BR", { maximumFractionDigits: 6 })} e ${max.toLocaleString("pt-BR")}.`;
   return (
     <div className="field">
       <label htmlFor={id}>
         {label}
-        {optional && <span>optional</span>}
+        {optional && <span>opcional</span>}
       </label>
       <div className={`input-wrap ${invalid ? "invalid" : ""}`}>
         <input
@@ -125,7 +128,7 @@ function Field({
           autoComplete="off"
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          placeholder="0.00"
+          placeholder="0,00"
           aria-required={required}
           aria-invalid={invalid}
           aria-describedby={`${id}-help`}
@@ -161,7 +164,7 @@ function EmptyResult({ children }: { children: ReactNode }) {
   return (
     <div className="empty-result">
       <SlidersHorizontal size={30} strokeWidth={1.4} />
-      <h3>Your numbers, your perspective.</h3>
+      <h3>Seus indicadores, sua análise.</h3>
       <p>{children}</p>
     </div>
   );
@@ -223,7 +226,7 @@ export function CalculatorWorkspace() {
         }
       } catch {
         setStatus(
-          "Saved scenarios could not be read. You can still use every calculator.",
+          "Não foi possível ler os cenários salvos. As calculadoras continuam disponíveis.",
         );
       }
       setLoaded(true);
@@ -237,18 +240,18 @@ export function CalculatorWorkspace() {
       setStatus(message);
     } catch {
       setStatus(
-        "Updated for this session. Browser storage is unavailable; export a CSV to keep your scenarios.",
+        "Atualizado nesta sessão. O armazenamento do navegador está indisponível; exporte um CSV para guardar seus cenários.",
       );
     }
   }
   function save(entry: Omit<SavedScenario, "id">) {
     if (saved.length >= 12) {
-      setStatus("You have 12 scenarios. Remove one before saving another.");
+      setStatus("Você já tem 12 cenários. Remova um antes de salvar outro.");
       return;
     }
     persist(
       [...saved, { ...entry, id: crypto.randomUUID() }],
-      "Scenario saved on this device.",
+      "Cenário salvo neste dispositivo.",
     );
   }
   function exportCsv() {
@@ -262,13 +265,13 @@ export function CalculatorWorkspace() {
     };
     const rows = [
       [
-        "Scenario",
-        "Price BRL",
-        "Graham BRL",
-        "Bazin BRL",
-        "Safety margin %",
-        "Graham entry BRL",
-        "Bazin entry BRL",
+        "Cenário",
+        "Preço em BRL",
+        "Graham em BRL",
+        "Bazin em BRL",
+        "Margem de segurança %",
+        "Entrada Graham em BRL",
+        "Entrada Bazin em BRL",
       ],
       ...saved.map((entry) => [
         entry.name,
@@ -291,15 +294,19 @@ export function CalculatorWorkspace() {
     link.download = "investment-scenarios.csv";
     link.click();
     URL.revokeObjectURL(url);
-    setStatus("Scenarios exported as CSV.");
+    setStatus("Cenários exportados em CSV.");
   }
   return (
     <div className="app-shell">
       <a href="#main" className="skip-link">
-        Skip to calculator
+        Ir para a calculadora
       </a>
       <header className="app-header">
-        <Link href="/" className="brand" aria-label="Invest Calculator home">
+        <Link
+          href="/"
+          className="brand"
+          aria-label="Página inicial do Invest Calculator"
+        >
           <span className="brand-symbol">
             <LineChart size={21} />
           </span>
@@ -312,11 +319,11 @@ export function CalculatorWorkspace() {
           <form action={signOut} noValidate className="sign-out-form">
             <span className="admin-label">admin</span>
             <button type="submit" className="text-button">
-              Sign out
+              Sair
             </button>
           </form>
           <span className="privacy">
-            <ShieldCheck size={15} /> Private by design
+            <ShieldCheck size={15} /> Privacidade por padrão
           </span>
           <a
             href="https://investidor10.com.br/acoes/"
@@ -324,16 +331,16 @@ export function CalculatorWorkspace() {
             rel="noopener noreferrer"
             className="external-link"
           >
-            Open Investidor10 <ArrowUpRight size={16} />
-            <span className="sr-only"> (opens in a new tab)</span>
+            Abrir Investidor10 <ArrowUpRight size={16} />
+            <span className="sr-only"> (abre em uma nova aba)</span>
           </a>
         </div>
       </header>
       <div className="workspace">
         <aside className="sidebar">
           <div>
-            <p className="nav-title">Your workbench</p>
-            <nav aria-label="Calculators">
+            <p className="nav-title">Suas ferramentas</p>
+            <nav aria-label="Calculadoras">
               {tools.map((item) => (
                 <button
                   key={item.id}
@@ -357,13 +364,13 @@ export function CalculatorWorkspace() {
             <div className="companion-mark">
               <Plus size={18} />
             </div>
-            <h3>A second perspective.</h3>
+            <h3>Mais uma perspectiva.</h3>
             <p>
-              Use the indicators you already follow. Keep your assumptions in
-              your hands.
+              Use os indicadores que você já acompanha e ajuste suas próprias
+              premissas.
             </p>
             <a href="#methods">
-              Understand the formulas <ArrowRight size={14} />
+              Entenda as fórmulas <ArrowRight size={14} />
             </a>
           </div>
         </aside>
@@ -374,7 +381,7 @@ export function CalculatorWorkspace() {
               <p>{titles[tool][1]}</p>
             </div>
             <span className="manual-badge">
-              <span /> Manual inputs · BRL
+              <span /> Dados manuais · BRL
             </span>
           </div>
           <div className="tool-container" key={tool}>
@@ -391,12 +398,12 @@ export function CalculatorWorkspace() {
               <div className="section-heading">
                 <div>
                   <h2 id="saved-title">
-                    Your comparison shelf{" "}
+                    Seus cenários{" "}
                     <span>{saved.length.toString().padStart(2, "0")}</span>
                   </h2>
                   <p>
-                    Saved assumptions, side by side. Stored only in this
-                    browser.
+                    Compare suas premissas. Os cenários ficam salvos apenas
+                    neste navegador.
                   </p>
                 </div>
                 <button
@@ -404,7 +411,7 @@ export function CalculatorWorkspace() {
                   onClick={exportCsv}
                   disabled={!saved.length}
                 >
-                  <ArrowDownToLine size={15} /> Export CSV
+                  <ArrowDownToLine size={15} /> Exportar CSV
                 </button>
               </div>
               {saved.length ? (
@@ -412,23 +419,23 @@ export function CalculatorWorkspace() {
                   className="table-scroll"
                   tabIndex={0}
                   role="region"
-                  aria-label="Saved scenarios table"
+                  aria-label="Tabela de cenários salvos"
                 >
                   <table>
                     <caption className="sr-only">
-                      Saved stock valuation scenarios
+                      Cenários salvos de avaliação de ações
                     </caption>
                     <thead>
                       <tr>
-                        <th>Scenario</th>
-                        <th>Current price</th>
+                        <th>Cenário</th>
+                        <th>Preço atual</th>
                         <th>Graham</th>
                         <th>Bazin</th>
-                        <th>Safety margin</th>
-                        <th>Graham entry</th>
-                        <th>Bazin entry</th>
+                        <th>Margem de segurança</th>
+                        <th>Entrada Graham</th>
+                        <th>Entrada Bazin</th>
                         <th>
-                          <span className="sr-only">Actions</span>
+                          <span className="sr-only">Ações</span>
                         </th>
                       </tr>
                     </thead>
@@ -445,11 +452,11 @@ export function CalculatorWorkspace() {
                           <td>
                             <button
                               className="icon-button"
-                              aria-label={`Remove ${entry.name}`}
+                              aria-label={`Remover ${entry.name}`}
                               onClick={() =>
                                 persist(
                                   saved.filter((item) => item.id !== entry.id),
-                                  `${entry.name} removed. Export first if you need a permanent copy.`,
+                                  `${entry.name} removido. Exporte os cenários antes de removê-los se precisar de uma cópia permanente.`,
                                 )
                               }
                             >
@@ -465,8 +472,8 @@ export function CalculatorWorkspace() {
                 <div className="shelf-empty">
                   <BookmarkPlus size={21} />
                   <p>
-                    A useful comparison starts with one scenario.
-                    <span>Fill in an asset above and save it here.</span>
+                    Salve seu primeiro cenário para comparar.
+                    <span>Preencha os dados da ação acima e salve aqui.</span>
                   </p>
                 </div>
               )}
@@ -476,8 +483,8 @@ export function CalculatorWorkspace() {
             {status}
           </div>
           <footer className="footer">
-            <span>Independent tool. No subscription.</span>
-            <span>Calculations happen on your device.</span>
+            <span>Ferramenta independente. Sem assinatura.</span>
+            <span>Os cálculos são feitos no seu dispositivo.</span>
           </footer>
         </main>
       </div>
@@ -522,11 +529,11 @@ function Valuation({
   const safeBazin = bazinReady ? (result?.bazin ?? null) : null;
   const safeBazinEntry = bazinReady ? (result?.bazinEntry ?? null) : null;
   function loadExample() {
-    setName("EXAMPLE");
+    setName("EXEMPLO");
     setPrice("25");
     setEps("3");
     setBvps("20");
-    setDividend("1.80");
+    setDividend("1,80");
     setTargetYield("6");
     setMargin(25);
     setExample(true);
@@ -546,23 +553,23 @@ function Valuation({
       <div className="calculator-grid">
         <section className="input-panel" aria-labelledby="asset-title">
           <div className="panel-heading">
-            <h2 id="asset-title">Asset fundamentals</h2>
+            <h2 id="asset-title">Indicadores da ação</h2>
             <button className="text-button" onClick={loadExample}>
-              Load example <ArrowUpRight size={13} />
+              Carregar exemplo <ArrowUpRight size={13} />
             </button>
           </div>
           <p className="panel-description">
-            Copy these from the asset’s indicators page.
+            Copie os dados da página de indicadores da ação.
           </p>
           {example && (
             <p className="example-notice">
-              Illustrative numbers. This is not a live quote.
+              Valores ilustrativos. Não representam uma cotação atual.
             </p>
           )}
           <form noValidate onSubmit={(event) => event.preventDefault()}>
             <div className="field">
               <label htmlFor="asset-name">
-                Asset or scenario<span>optional</span>
+                Ação ou cenário<span>opcional</span>
               </label>
               <div className="input-wrap">
                 <input
@@ -571,63 +578,63 @@ function Valuation({
                   maxLength={40}
                   value={name}
                   onChange={(event) => setName(event.target.value)}
-                  placeholder="e.g. BBAS3 · conservative"
+                  placeholder="Ex.: BBAS3 · conservador"
                 />
               </div>
-              <p className="field-help">A label for your comparison shelf.</p>
+              <p className="field-help">Nome para identificar seu cenário.</p>
             </div>
             <Field
               id="price"
-              label="Current share price"
+              label="Preço atual da ação"
               value={price}
               onChange={setPrice}
-              hint="The price you want to compare against."
+              hint="Cotação usada para comparar os resultados."
               min={0.000001}
               required
             />
             <div className="field-pair">
               <Field
                 id="eps"
-                label="Earnings per share"
+                label="Lucro por ação"
                 value={eps}
                 onChange={setEps}
                 min={-1e9}
-                hint="LPA · last 12 months"
+                hint="LPA · últimos 12 meses"
                 optional
               />
               <Field
                 id="bvps"
-                label="Book value per share"
+                label="Patrimônio por ação"
                 value={bvps}
                 onChange={setBvps}
                 min={-1e9}
-                hint="VPA · latest balance sheet"
+                hint="VPA · balanço mais recente"
                 optional
               />
             </div>
             <div className="field-pair">
               <Field
                 id="dividend"
-                label="Annual dividends / share"
+                label="Proventos anuais por ação"
                 value={dividend}
                 onChange={setDividend}
-                hint="Total proventos · last 12 months"
+                hint="Proventos por ação · últimos 12 meses"
                 optional
               />
               <Field
                 id="target-yield"
-                label="Target dividend yield"
+                label="Rentabilidade desejada"
                 value={targetYield}
                 onChange={setTargetYield}
                 suffix="%"
                 min={0.01}
                 max={100}
-                hint="Bazin reference: 6% per year"
+                hint="Referência de Bazin: 6% ao ano"
               />
             </div>
             <div className="margin-control">
               <div>
-                <label htmlFor="safety-margin">Safety margin</label>
+                <label htmlFor="safety-margin">Margem de segurança</label>
                 <output htmlFor="safety-margin">{margin}%</output>
               </div>
               <input
@@ -639,28 +646,28 @@ function Valuation({
                 value={margin}
                 onChange={(event) => setMargin(Number(event.target.value))}
               />
-              <p>A discount applied to each model’s estimated price.</p>
+              <p>Desconto aplicado ao preço estimado por cada método.</p>
             </div>
             <div className="input-actions">
               <span>
-                <Check size={14} /> Updates as you type
+                <Check size={14} /> Atualização automática
               </span>
               <button className="text-button" onClick={reset} type="button">
-                <RotateCcw size={13} /> Reset
+                <RotateCcw size={13} /> Limpar
               </button>
             </div>
           </form>
         </section>
         <section className="results-panel" aria-labelledby="results-title">
           <div className="panel-heading">
-            <h2 id="results-title">The valuation lens</h2>
-            <span className="subtle-tag">Two methods</span>
+            <h2 id="results-title">Resultados da avaliação</h2>
+            <span className="subtle-tag">Dois métodos</span>
           </div>
           {result ? (
             <>
               <div className="valuation-results">
                 <Metric
-                  label="Graham fair value"
+                  label="Preço justo de Graham"
                   value={currency(result.graham)}
                   detail={
                     result.grahamUpside !== null ? (
@@ -669,15 +676,15 @@ function Valuation({
                           result.grahamUpside >= 0 ? "positive" : "negative"
                         }
                       >
-                        {percent(result.grahamUpside)} vs. current price
+                        {percent(result.grahamUpside)} em relação ao preço atual
                       </span>
                     ) : (
-                      "Requires positive LPA and VPA"
+                      "Exige LPA e VPA positivos"
                     )
                   }
                 />
                 <Metric
-                  label="Bazin ceiling price"
+                  label="Preço-teto de Bazin"
                   value={currency(safeBazin)}
                   detail={
                     safeBazin !== null ? (
@@ -688,10 +695,10 @@ function Valuation({
                             : "negative"
                         }
                       >
-                        {percent(result.bazinUpside)} vs. current price
+                        {percent(result.bazinUpside)} em relação ao preço atual
                       </span>
                     ) : (
-                      "Enter annual dividends and a valid yield"
+                      "Informe os proventos anuais e uma rentabilidade válida"
                     )
                   }
                 />
@@ -699,54 +706,60 @@ function Valuation({
               <div className="entry-band">
                 <div className="entry-heading">
                   <ShieldCheck size={18} />
-                  <span>Entry prices with {margin}% safety margin</span>
+                  <span>
+                    Preços de entrada com {margin}% de margem de segurança
+                  </span>
                 </div>
                 <div className="entry-values">
                   <div>
-                    <span>Graham entry</span>
+                    <span>Entrada Graham</span>
                     <strong>{currency(result.grahamEntry)}</strong>
                   </div>
                   <div>
-                    <span>Bazin entry</span>
+                    <span>Entrada Bazin</span>
                     <strong>{currency(safeBazinEntry)}</strong>
                   </div>
                 </div>
               </div>
               <div className="quick-metrics">
                 <div>
-                  <span>P/E · P/L</span>
+                  <span>P/L</span>
                   <strong>
-                    {result.pe === null ? "—" : `${result.pe.toFixed(2)}×`}
+                    {result.pe === null
+                      ? "—"
+                      : `${result.pe.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}×`}
                   </strong>
                 </div>
                 <div>
-                  <span>P/B · P/VP</span>
+                  <span>P/VP</span>
                   <strong>
-                    {result.pb === null ? "—" : `${result.pb.toFixed(2)}×`}
+                    {result.pb === null
+                      ? "—"
+                      : `${result.pb.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}×`}
                   </strong>
                 </div>
                 <div>
-                  <span>Dividend yield</span>
+                  <span>Rentabilidade dos proventos</span>
                   <strong>{percent(result.currentYield)}</strong>
                 </div>
               </div>
               <div className="scenario-heading">
-                <h3>Explore your buffer</h3>
-                <span>Entry price by discount</span>
+                <h3>Compare as margens</h3>
+                <span>Preço de entrada por desconto</span>
               </div>
               <div
                 className="table-scroll"
                 tabIndex={0}
                 role="region"
-                aria-label="Safety margin comparison table"
+                aria-label="Tabela de comparação das margens"
               >
                 <table className="buffer-table">
                   <caption className="sr-only">
-                    Entry prices at different safety margins
+                    Preços de entrada com diferentes margens de segurança
                   </caption>
                   <thead>
                     <tr>
-                      <th>Safety margin</th>
+                      <th>Margem de segurança</th>
                       <th>Graham</th>
                       <th>Bazin</th>
                     </tr>
@@ -779,7 +792,7 @@ function Valuation({
                 disabled={!canSave}
                 onClick={() =>
                   onSave({
-                    name: name.trim() || "Untitled scenario",
+                    name: name.trim() || "Cenário sem nome",
                     price: priceValue!,
                     graham: result.graham,
                     bazin: safeBazin,
@@ -789,71 +802,73 @@ function Valuation({
                   })
                 }
               >
-                <BookmarkPlus size={17} /> Save to comparison shelf{" "}
+                <BookmarkPlus size={17} /> Salvar cenário{" "}
                 <ArrowRight size={16} />
               </button>
             </>
           ) : (
             <EmptyResult>
-              Enter a share price and either LPA + VPA or annual dividends to
-              see your estimates. You can also load an example.
+              Informe o preço da ação e o LPA + VPA ou os proventos anuais para
+              calcular as estimativas. Você também pode carregar um exemplo.
             </EmptyResult>
           )}
           <Note>
-            These models use your inputs, not forecasts. They do not determine a
-            company’s actual value or a buy recommendation.
+            As estimativas usam os dados informados. Não garantem o valor real
+            da empresa nem representam uma recomendação de compra.
           </Note>
         </section>
       </div>
       <section id="methods" className="methods-section">
-        <h2>Know what’s behind the number.</h2>
+        <h2>Entenda os cálculos.</h2>
         <div className="methods-grid">
           <details>
             <summary>
-              Graham: earnings meet equity <Plus size={16} />
+              Graham: lucro e patrimônio <Plus size={16} />
             </summary>
             <div>
-              <code>√(22.5 × LPA × VPA)</code>
+              <code>√(22,5 × LPA × VPA)</code>
               <p>
-                The Graham number combines a P/E of 15 and a P/B of 1.5. Both
-                earnings and book value must be positive. This model can be less
-                meaningful for asset-light companies or unusual earnings.
+                O número de Graham combina um P/L de 15 com um P/VP de 1,5. O
+                lucro e o patrimônio por ação precisam ser positivos. O método
+                pode ser menos adequado para empresas com poucos ativos ou
+                lucros atípicos.
               </p>
               <a
                 href="https://investidor10.com.br/conteudo/benjamin-graham/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Method reference <ExternalLink size={12} />
-                <span className="sr-only"> (opens in a new tab)</span>
+                Referência do método <ExternalLink size={12} />
+                <span className="sr-only"> (abre em uma nova aba)</span>
               </a>
             </div>
           </details>
           <details>
             <summary>
-              Bazin: income sets the ceiling <Plus size={16} />
+              Bazin: proventos e preço-teto <Plus size={16} />
             </summary>
             <div>
-              <code>Annual dividends per share ÷ target yield</code>
+              <code>Proventos anuais por ação ÷ rentabilidade desejada</code>
               <p>
-                At a 6% target yield, R$ 1.80 in annual dividends implies R$
-                30.00. This is the yield-based price calculation only, not
-                Bazin’s full company selection criteria. One-off payouts can
-                inflate the estimate.
+                Com rentabilidade desejada de 6%, R$ 1,80 de proventos anuais
+                correspondem a um preço-teto de R$ 30,00. Este cálculo não
+                inclui todos os critérios de seleção de empresas de Bazin.
+                Pagamentos extraordinários podem elevar a estimativa.
               </p>
             </div>
           </details>
           <details>
             <summary>
-              Safety margin & input consistency <Plus size={16} />
+              Margem de segurança e dados <Plus size={16} />
             </summary>
             <div>
-              <code>Model price × (1 − safety margin)</code>
+              <code>Preço estimado × (1 − margem de segurança)</code>
               <p>
-                Upside is model price ÷ current price − 1. Use per-share figures
-                adjusted to the same share basis, and a consistent period.
-                Dividends are entered in reais per share, not as a yield
-                percentage. Commas and dots are accepted as decimal separators.
+                A diferença percentual é calculada por preço estimado ÷ preço
+                atual − 1. Use dados por ação ajustados à mesma base e a um
+                período consistente. Informe os proventos em reais por ação, e
+                não em percentual. Vírgula e ponto são aceitos como separadores
+                decimais.
               </p>
             </div>
           </details>
@@ -883,138 +898,138 @@ function Income() {
       <div className="calculator-grid">
         <section className="input-panel">
           <div className="panel-heading">
-            <h2>Income assumptions</h2>
+            <h2>Dados para sua renda</h2>
             <button
               className="text-button"
               onClick={() => {
                 setPrice("25");
-                setDividend("1.80");
+                setDividend("1,80");
                 setGoal("1000");
                 setShares("100");
                 setExample(true);
               }}
             >
-              Load example <ArrowUpRight size={13} />
+              Carregar exemplo <ArrowUpRight size={13} />
             </button>
           </div>
           <p className="panel-description">
-            Use annual payouts to plan an average monthly income.
+            Use os proventos anuais para estimar uma renda média mensal.
           </p>
           {example && (
             <p className="example-notice">
-              Illustrative numbers. This is not a live quote.
+              Valores ilustrativos. Não representam uma cotação atual.
             </p>
           )}
           <form noValidate onSubmit={(event) => event.preventDefault()}>
             <Field
               id="income-price"
-              label="Current share price"
+              label="Preço atual da ação"
               value={price}
               onChange={setPrice}
               min={0.000001}
-              hint="Purchase price used for the capital estimate."
+              hint="Preço de compra usado na estimativa de capital."
             />
             <Field
               id="income-dividend"
-              label="Annual dividends / share"
+              label="Proventos anuais por ação"
               value={dividend}
               onChange={setDividend}
               min={0.000001}
-              hint="Total per share over a full year."
+              hint="Total por ação durante um ano completo."
             />
             <Field
               id="income-goal"
-              label="Monthly income goal"
+              label="Meta de renda mensal"
               value={goal}
               onChange={setGoal}
-              hint="The average income you would like to receive."
+              hint="Renda média que você deseja receber por mês."
             />
             <Field
               id="income-shares"
-              label="Shares you already own"
+              label="Ações que você já possui"
               value={shares}
               onChange={setShares}
-              suffix="shares"
+              suffix="ações"
               integer
-              hint="Whole shares · use 0 if you are starting."
+              hint="Quantidade inteira · use 0 se estiver começando."
             />
           </form>
           <Note>
-            Payouts fluctuate. Monthly average does not mean the asset pays
-            every month.
+            Os proventos variam. A média mensal não significa que a ação paga
+            todos os meses.
           </Note>
         </section>
         <section className="results-panel">
           <div className="panel-heading">
-            <h2>Your income plan</h2>
-            <span className="subtle-tag">Annual basis</span>
+            <h2>Seu plano de renda</h2>
+            <span className="subtle-tag">Base anual</span>
           </div>
           {result ? (
             <>
               <div className="valuation-results">
                 <Metric
-                  label="Shares needed for your goal"
-                  value={result.requiredShares.toLocaleString("en")}
-                  detail="Rounded up to a whole share"
+                  label="Ações necessárias para a meta"
+                  value={result.requiredShares.toLocaleString("pt-BR")}
+                  detail="Arredondado para a próxima ação inteira"
                 />
                 <Metric
-                  label="Estimated capital needed"
+                  label="Capital necessário estimado"
                   value={currency(result.requiredCapital)}
-                  detail={`At ${currency(values[0])} per share`}
+                  detail={`A ${currency(values[0])} por ação`}
                 />
               </div>
               <div className="entry-band">
                 <div className="entry-heading">
                   <Wallet size={18} />
-                  <span>From your current holdings</span>
+                  <span>Renda das suas ações atuais</span>
                 </div>
                 <div className="entry-values">
                   <div>
-                    <span>Monthly average</span>
+                    <span>Média mensal</span>
                     <strong>{currency(result.monthlyAverage)}</strong>
                   </div>
                   <div>
-                    <span>Annual income</span>
+                    <span>Renda anual</span>
                     <strong>{currency(result.annualIncome)}</strong>
                   </div>
                 </div>
               </div>
               <div className="income-list">
                 <div>
-                  <span>Additional shares to reach the goal</span>
+                  <span>Ações adicionais para alcançar a meta</span>
                   <strong>
-                    {result.additionalShares.toLocaleString("en")}
+                    {result.additionalShares.toLocaleString("pt-BR")}
                   </strong>
                 </div>
                 <div>
-                  <span>Additional capital</span>
+                  <span>Capital adicional</span>
                   <strong>
                     {currency(result.additionalShares * values[0]!)}
                   </strong>
                 </div>
                 <div>
-                  <span>Dividend yield at this price</span>
+                  <span>Rentabilidade dos proventos neste preço</span>
                   <strong>{percent(result.yield)}</strong>
                 </div>
               </div>
             </>
           ) : (
             <EmptyResult>
-              Enter a positive share price and annual dividend to calculate how
-              many shares your goal would require.
+              Informe um preço da ação e proventos anuais positivos para
+              calcular quantas ações seriam necessárias para sua meta.
             </EmptyResult>
           )}
           <Note>
-            Gross estimates before taxes and fees. Assumes the entered dividend
-            remains constant and no reinvestment.
+            Estimativas brutas, antes de impostos e taxas. Consideram proventos
+            constantes, sem reinvestimento.
           </Note>
         </section>
       </div>
       <section id="methods" className="methods-section">
-        <h2>The income math.</h2>
+        <h2>Como a renda é calculada.</h2>
         <p className="method-inline">
-          Required shares = monthly goal × 12 ÷ annual dividends per share,
-          rounded up. Capital = required shares × share price.
+          Ações necessárias = meta mensal × 12 ÷ proventos anuais por ação, com
+          arredondamento para cima. Capital = ações necessárias × preço da ação.
         </p>
       </section>
     </>
@@ -1048,113 +1063,113 @@ function Compound() {
       <div className="calculator-grid">
         <section className="input-panel">
           <div className="panel-heading">
-            <h2>Growth assumptions</h2>
-            <span className="subtle-tag">Simulation</span>
+            <h2>Dados da simulação</h2>
+            <span className="subtle-tag">Simulação</span>
           </div>
           <p className="panel-description">
-            Adjust the inputs to explore a possible future.
+            Ajuste os valores para simular seu patrimônio futuro.
           </p>
           <form noValidate onSubmit={(event) => event.preventDefault()}>
             <Field
               id="initial"
-              label="Initial investment"
+              label="Investimento inicial"
               value={initial}
               onChange={setInitial}
-              hint="Your starting balance."
+              hint="Valor disponível no início da simulação."
             />
             <Field
               id="monthly"
-              label="Monthly contribution"
+              label="Aporte mensal"
               value={monthly}
               onChange={setMonthly}
-              hint="Added at the end of each month."
+              hint="Aplicado no fim de cada mês."
             />
             <div className="field-pair">
               <Field
                 id="annual-rate"
-                label="Annual return"
+                label="Rentabilidade anual"
                 value={rate}
                 onChange={setRate}
                 min={-99}
                 max={100}
                 suffix="%"
-                hint="Effective annual rate"
+                hint="Taxa efetiva ao ano"
               />
               <Field
                 id="years"
-                label="Investment period"
+                label="Prazo do investimento"
                 value={years}
                 onChange={setYears}
                 min={1}
                 max={60}
                 integer
-                suffix="years"
-                hint="Between 1 and 60 years"
+                suffix="anos"
+                hint="Entre 1 e 60 anos"
               />
             </div>
             <Field
               id="inflation"
-              label="Annual inflation"
+              label="Inflação anual"
               value={inflation}
               onChange={setInflation}
               min={-99}
               max={100}
               suffix="%"
-              hint="Used to estimate purchasing power in today’s reais."
+              hint="Usada para estimar o poder de compra em reais de hoje."
             />
           </form>
           <Note>
-            Example assumptions, not a forecast. Returns are constant in this
-            simulation.
+            Premissas ilustrativas, não uma previsão. A rentabilidade é
+            constante nesta simulação.
           </Note>
         </section>
         <section className="results-panel">
           <div className="panel-heading">
-            <h2>The long-term picture</h2>
+            <h2>Projeção do patrimônio</h2>
             <span className="subtle-tag">
-              {valid(years, 1, 60, true) ?? "—"} years
+              {valid(years, 1, 60, true) ?? "—"} anos
             </span>
           </div>
           {result ? (
             <>
               <div className="valuation-results">
                 <Metric
-                  label="Projected balance"
+                  label="Saldo projetado"
                   value={currency(result.total)}
                 />
                 <Metric
-                  label="In today’s purchasing power"
+                  label="Poder de compra em reais de hoje"
                   value={currency(result.real)}
                 />
               </div>
               <GrowthChart points={result.points} />
               <div className="quick-metrics growth-metrics">
                 <div>
-                  <span>Your contributions</span>
+                  <span>Total de aportes</span>
                   <strong>{currency(result.invested)}</strong>
                 </div>
                 <div>
-                  <span>Investment gain / loss</span>
+                  <span>Ganho ou perda no período</span>
                   <strong>{currency(result.earnings)}</strong>
                 </div>
               </div>
               <details className="year-breakdown">
                 <summary>
-                  View the year-by-year breakdown <Plus size={15} />
+                  Ver a evolução ano a ano <Plus size={15} />
                 </summary>
                 <div
                   className="table-scroll"
                   tabIndex={0}
                   role="region"
-                  aria-label="Year-by-year projection table"
+                  aria-label="Tabela de projeção ano a ano"
                 >
                   <table>
                     <thead>
                       <tr>
-                        <th>Year</th>
-                        <th>Contributed</th>
-                        <th>Balance</th>
-                        <th>Today’s money</th>
+                        <th>Ano</th>
+                        <th>Aportes</th>
+                        <th>Saldo</th>
+                        <th>Em reais de hoje</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -1173,22 +1188,23 @@ function Compound() {
             </>
           ) : (
             <EmptyResult>
-              Enter valid values to see the projection. Use whole years between
-              1 and 60.
+              Informe valores válidos para ver a projeção. Use um prazo inteiro
+              entre 1 e 60 anos.
             </EmptyResult>
           )}
           <Note>
-            Effective annual rates are converted to monthly rates. Contributions
-            stay fixed in nominal reais. Taxes and fees are excluded.
+            As taxas anuais efetivas são convertidas em taxas mensais. Os
+            aportes permanecem fixos em reais nominais. Impostos e taxas não
+            estão incluídos.
           </Note>
         </section>
       </div>
       <section id="methods" className="methods-section">
-        <h2>Small contributions. A longer horizon.</h2>
+        <h2>Aportes constantes ao longo do tempo.</h2>
         <p className="method-inline">
-          Monthly rate = (1 + annual rate)^(1/12) − 1. Each contribution starts
-          earning after the month it is added. Inflation-adjusted balance =
-          nominal balance ÷ (1 + inflation)^years.
+          Taxa mensal = (1 + taxa anual)^(1/12) − 1. Cada aporte começa a render
+          após o mês em que é aplicado. Saldo corrigido pela inflação = saldo
+          nominal ÷ (1 + inflação)^anos.
         </p>
       </section>
     </>
@@ -1214,16 +1230,16 @@ function GrowthChart({
     <figure className="growth-chart">
       <figcaption>
         <span>
-          <i className="balance-dot" /> Projected balance
+          <i className="balance-dot" /> Saldo projetado
         </span>
         <span>
-          <i className="contribution-dot" /> Contributions
+          <i className="contribution-dot" /> Aportes
         </span>
       </figcaption>
       <svg
         viewBox="0 0 540 205"
         role="img"
-        aria-label="Projected balance and contributions over time. Exact values are available in the year-by-year breakdown."
+        aria-label="Saldo projetado e aportes ao longo do tempo. Os valores exatos estão na tabela de evolução ano a ano."
       >
         {[0, 0.5, 1].map((fraction) => (
           <line
@@ -1248,10 +1264,10 @@ function GrowthChart({
           className="chart-end"
         />
         <text x="30" y="196">
-          Year 0
+          Ano 0
         </text>
         <text x="510" y="196" textAnchor="end">
-          Year {points.length - 1}
+          Ano {points.length - 1}
         </text>
       </svg>
     </figure>

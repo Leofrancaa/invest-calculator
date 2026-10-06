@@ -33,13 +33,13 @@ export function LoginForm() {
           <div className="login-icon">
             <LockKeyhole size={23} />
           </div>
-          <h1 id="login-title">Your private workbench.</h1>
+          <h1 id="login-title">Seu espaço de investimentos.</h1>
           <p className="login-description">
-            Sign in to access your investing calculators.
+            Entre para acessar suas calculadoras de investimentos.
           </p>
           <form action={action} noValidate>
             <div className="field">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username">Usuário</label>
               <div className="input-wrap">
                 <input
                   ref={usernameRef}
@@ -57,7 +57,7 @@ export function LoginForm() {
               </div>
             </div>
             <div className="field">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">Senha</label>
               <div className="input-wrap">
                 <input
                   ref={passwordRef}
@@ -74,7 +74,7 @@ export function LoginForm() {
                   type="button"
                   className="icon-button password-toggle"
                   onClick={() => setVisible((value) => !value)}
-                  aria-label={visible ? "Hide password" : "Show password"}
+                  aria-label={visible ? "Ocultar senha" : "Mostrar senha"}
                   aria-pressed={visible}
                 >
                   {visible ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -90,16 +90,16 @@ export function LoginForm() {
               disabled={pending}
               aria-busy={pending}
             >
-              {pending ? "Signing in…" : "Sign in"}
+              {pending ? "Entrando…" : "Entrar"}
               <ArrowRight size={17} />
             </button>
           </form>
           <p className="login-footnote">
-            Admin access · session expires after 8 hours.
+            Acesso de administrador · sessão válida por 8 horas.
           </p>
         </section>
         <p className="login-caption">
-          Your calculations and saved scenarios stay on this device.
+          Seus cálculos e cenários salvos ficam neste dispositivo.
         </p>
       </div>
     </main>
