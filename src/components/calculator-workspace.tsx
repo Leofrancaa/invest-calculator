@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { NumericField as Field } from "./numeric-field";
+import { Portfolio } from "./portfolio";
 import { signOut } from "@/app/login/actions";
 
 import { useEffect, useState, type ReactNode } from "react";
@@ -33,7 +35,7 @@ import {
   percent,
 } from "@/lib/calculations";
 
-type Tool = "valuation" | "income" | "compound";
+type Tool = "valuation" | "income" | "compound" | "portfolio";
 type SavedScenario = {
   id: string;
   name: string;
@@ -46,6 +48,12 @@ type SavedScenario = {
 };
 const STORAGE_KEY = "invest-calculator:scenarios:v1";
 const tools = [
+  {
+    id: "portfolio" as const,
+    label: "Minha carteira",
+    icon: Wallet,
+    description: "Sua distribuição por categoria",
+  },
   {
     id: "valuation" as const,
     label: "Avaliação de ações",
@@ -66,6 +74,10 @@ const tools = [
   },
 ];
 const titles = {
+  portfolio: [
+    "Sua carteira, por categoria.",
+    "Registre seus investimentos e acompanhe a distribuição do patrimônio.",
+  ],
   valuation: [
     "Quanto vale a ação?",
     "Informe os indicadores e compare os preços estimados.",
@@ -80,68 +92,6 @@ const titles = {
   ],
 };
 
-function Field({
-  id,
-  label,
-  hint,
-  value,
-  onChange,
-  suffix = "R$",
-  optional = false,
-  min = 0,
-  max = 1e9,
-  integer = false,
-  required = false,
-}: {
-  id: string;
-  label: string;
-  hint?: string;
-  value: string;
-  onChange: (value: string) => void;
-  suffix?: string;
-  optional?: boolean;
-  min?: number;
-  max?: number;
-  integer?: boolean;
-  required?: boolean;
-}) {
-  const number = parseAmount(value);
-  const invalid = value.trim()
-    ? number === null ||
-      number < min ||
-      number > max ||
-      (integer && !Number.isInteger(number))
-    : false;
-  const error = integer
-    ? `Informe um número inteiro entre ${min.toLocaleString("pt-BR")} e ${max.toLocaleString("pt-BR")}.`
-    : `Informe um número entre ${min.toLocaleString("pt-BR", { maximumFractionDigits: 6 })} e ${max.toLocaleString("pt-BR")}.`;
-  return (
-    <div className="field">
-      <label htmlFor={id}>
-        {label}
-        {optional && <span>opcional</span>}
-      </label>
-      <div className={`input-wrap ${invalid ? "invalid" : ""}`}>
-        <input
-          id={id}
-          type="text"
-          inputMode={integer ? "numeric" : "decimal"}
-          autoComplete="off"
-          value={value}
-          onChange={(event) => onChange(event.target.value)}
-          placeholder="0,00"
-          aria-required={required}
-          aria-invalid={invalid}
-          aria-describedby={`${id}-help`}
-        />
-        <span aria-hidden="true">{suffix}</span>
-      </div>
-      <p id={`${id}-help`} className={invalid ? "field-error" : "field-help"}>
-        {invalid ? error : hint || " "}
-      </p>
-    </div>
-  );
-}
 function DividendEstimator({
   price,
   onApply,
@@ -447,8 +397,11 @@ export function CalculatorWorkspace() {
               Use os indicadores que você já acompanha e ajuste suas próprias
               premissas.
             </p>
-            <a href="#methods">
-              Entenda as fórmulas <ArrowRight size={14} />
+            <a href={tool === "portfolio" ? "#portfolio-guide" : "#methods"}>
+              {tool === "portfolio"
+                ? "Como preencher a carteira"
+                : "Entenda as fórmulas"}{" "}
+              <ArrowRight size={14} />
             </a>
           </div>
         </aside>
@@ -462,14 +415,21 @@ export function CalculatorWorkspace() {
               <span /> Dados manuais · BRL
             </span>
           </div>
-          <div className="tool-container" key={tool}>
+          <div className="tool-container" hidden={tool !== "portfolio"}>
+            <Portfolio />
+          </div>
+          <div
+            className="tool-container"
+            key={tool}
+            hidden={tool === "portfolio"}
+          >
             {tool === "valuation" ? (
               <Valuation onSave={save} canSave={loaded && saved.length < 12} />
             ) : tool === "income" ? (
               <Income />
-            ) : (
+            ) : tool === "compound" ? (
               <Compound />
-            )}
+            ) : null}
           </div>
           {tool === "valuation" && (
             <section className="saved-section" aria-labelledby="saved-title">

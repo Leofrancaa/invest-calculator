@@ -15,6 +15,56 @@ test.beforeEach(async ({ page }) => {
   ).toBeVisible();
 });
 
+test("portfolio allocation saves, survives navigation and reload, validates input and fits mobile", async ({
+  page,
+}) => {
+  await page.getByRole("button", { name: "Minha carteira" }).click();
+  await expect(
+    page.getByText("Sua carteira ainda está vazia.", { exact: false }),
+  ).toBeVisible();
+  await page.getByLabel("Renda fixa", { exact: true }).fill("10000");
+  await page.getByLabel("FIIs", { exact: true }).fill("5000");
+  await page.getByLabel("Ações", { exact: true }).fill("5000");
+  await expect(page.getByText("R$ 20.000,00", { exact: true })).toBeVisible();
+  await expect(page.getByText("50%", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Avaliação de ações" }).click();
+  await page.getByRole("button", { name: "Minha carteira" }).click();
+  await expect(page.getByLabel("Renda fixa", { exact: true })).toHaveValue(
+    "10000",
+  );
+  await page.getByRole("button", { name: "Salvar carteira" }).click();
+  await expect(page.locator(".portfolio-status")).toHaveText(
+    "Carteira salva neste navegador.",
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "Minha carteira" }).click();
+  await expect(page.getByLabel("FIIs", { exact: true })).toHaveValue("5000");
+  await page.getByLabel("Ações", { exact: true }).fill("invalid");
+  await expect(
+    page.getByRole("button", { name: "Salvar carteira" }),
+  ).toBeDisabled();
+  await page.getByLabel("Ações", { exact: true }).fill("5000");
+  for (const width of [320, 390, 768]) {
+    await page.setViewportSize({ width, height: 844 });
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  }
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.screenshot({
+    path: ".impeccable/review/portfolio-desktop.png",
+    fullPage: true,
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.screenshot({
+    path: ".impeccable/review/portfolio-mobile.png",
+    fullPage: true,
+  });
+});
+
 test("annual dividend estimator applies precise values and preserves manual entries", async ({
   page,
 }) => {

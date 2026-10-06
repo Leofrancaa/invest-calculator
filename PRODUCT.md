@@ -11,3 +11,5 @@ The user explicitly requested a Brazilian Portuguese interface. User-facing labe
 The interface is an Operate surface. Use a light, restrained workbench for a desktop browser beside Investidor10, with a stacked phone layout. Inputs and results must stay together; no onboarding or marketing hero.
 
 Comparison snapshots are stored only on the device, with a 12-entry limit and CSV export. Storage failure must preserve current-session functionality. Missing or invalid values never produce a fabricated result.
+
+Portfolio records use current BRL market values in eight mutually exclusive asset classes. Blank categories count as zero. Allocation percentages describe the entered holdings, not recommended targets. Save explicitly to browser storage; preserve drafts while switching tools. Invalid or unreadable existing storage must not be silently overwritten.

@@ -69,6 +69,8 @@ Borders and tonal surfaces own depth. No drop shadows, gradients, decorative blu
 
 The shared Field owns labels, parsing feedback, focus and error description. Native range controls are canonical for safety margin; no select/listbox is required. Plain buttons switch tools, with `aria-current` on the active calculator.
 
+NumericField owns shared amount entry across calculators and portfolio. Portfolio uses paired fields with shared label/input/hint tracks, a total and labeled horizontal allocation bars. Each category includes an exact amount and percentage. Four tool navigation buttons form a two-column grid on narrow phones. Portfolio drafts survive switching tools and save only on an explicit action.
+
 DividendEstimator owns the inline disclosure for deriving annual dividends from the entered quote and trailing-12-month DY. Valuation and income reuse this component. Applying the estimate is explicit; changing the quote or DY never silently replaces the dividend field. The estimate displays up to six decimal places.
 
 Paired fields share label, input and hint grid tracks through CSS subgrid, so a wrapped label never pushes one input below its neighbor. Older browsers reserve a common label height as a fallback. Labels wrap without truncation.

@@ -55,3 +55,5 @@ Dividend income is an annual estimate divided by 12, not a monthly payment sched
 Saved scenarios stay in local browser storage and are not synchronized. Export a CSV before clearing browser data. Financial inputs stay on the device; sign-in credentials are sent to the server only for authentication.
 
 References: [Graham](https://investidor10.com.br/conteudo/benjamin-graham/) and [Graham/Bazin](https://investidor10.com.br/conteudo/preco-justo-das-acoes-metodo-bazin/).
+
+- Portfolio amounts by fixed income, real estate funds, stocks, ETFs, international investments, crypto, cash and other assets; total value and current allocation percentages, saved locally on explicit request.
