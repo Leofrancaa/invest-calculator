@@ -1,6 +1,20 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
+test.beforeEach(async ({ page }) => {
+  if (!process.env.TEST_ADMIN_PASSWORD)
+    throw new Error("Set TEST_ADMIN_PASSWORD to run browser tests.");
+  await page.goto("/login");
+  await page.getByLabel("Username").fill("admin");
+  await page
+    .getByLabel("Password", { exact: true })
+    .fill(process.env.TEST_ADMIN_PASSWORD);
+  await page.getByRole("button", { name: "Sign in", exact: true }).click();
+  await expect(
+    page.getByRole("heading", { name: "A clearer view of value." }),
+  ).toBeVisible();
+});
+
 test("valuation, storage, CSV, invalid data and both secondary tools", async ({
   page,
 }) => {

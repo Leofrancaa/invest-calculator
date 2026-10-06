@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { signOut } from "@/app/login/actions";
 
 import { useEffect, useState, type ReactNode } from "react";
 import {
@@ -308,6 +309,12 @@ export function CalculatorWorkspace() {
           </span>
         </Link>
         <div className="header-right">
+          <form action={signOut} noValidate className="sign-out-form">
+            <span className="admin-label">admin</span>
+            <button type="submit" className="text-button">
+              Sign out
+            </button>
+          </form>
           <span className="privacy">
             <ShieldCheck size={15} /> Private by design
           </span>
@@ -469,7 +476,7 @@ export function CalculatorWorkspace() {
             {status}
           </div>
           <footer className="footer">
-            <span>Independent tool. No account, no subscription.</span>
+            <span>Independent tool. No subscription.</span>
             <span>Calculations happen on your device.</span>
           </footer>
         </main>

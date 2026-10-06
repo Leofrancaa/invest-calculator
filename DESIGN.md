@@ -71,6 +71,8 @@ The shared Field owns labels, parsing feedback, focus and error description. Nat
 
 Empty results explain required inputs. Missing model outputs use an em dash with a textual reason. Storage notifications use one stable live region. Disabled saving/export remain visibly disabled. Inline disclosures use native details/summary keyboard behavior. No modal workflow is needed.
 
+Sign-in uses a centered 430px column, the same panel and field tokens, a masked password with an accessible visibility toggle, inline errors, and a fixed-height pending button. The authenticated header identifies the admin and provides Sign out. Errors preserve the username and focus the missing field or password.
+
 Global scrollbars inherit tokenized thumb/track colors with hover and active variants. Focus uses a visible violet outline. Selection and input caret use the same palette. Reduced-motion disables transitions and smooth scrolling.
 
 ## Do's and Don'ts
